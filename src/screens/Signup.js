@@ -9,6 +9,8 @@ const Signup = () => {
     geolocation: "",
   });
 
+  const [btnText, setBtnText] = useState("Already a user");
+
   const handleSubmit = async (e) => {
     e.preventDefault(); //synthetic event
     const response = await fetch("http://65.2.176.144:3000/api/createUser", {
@@ -29,10 +31,15 @@ const Signup = () => {
     if (!json.success) {
       alert("Enter valid credentials");
     }
+    
   };
 
   const onChange = (event) => {
     setcreds({ ...creds, [event.target.name]: event.target.value });
+  };
+
+  const onChangeBtnText = () => {
+    setBtnText("Click to Login");
   };
 
   return (
@@ -97,11 +104,11 @@ const Signup = () => {
               onChange={onChange}
             />
           </div>
-          <button type="submit" className="m-3 btn btn-success">
+          <button type="submit" className="m-3 btn btn-success" onClick={onChangeBtnText}>
             Submit
           </button>
           <Link to="/login" className="m-3 btn btn-danger">
-            Already a user
+            {btnText}
           </Link>
         </form>
       </div>
